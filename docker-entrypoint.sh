@@ -7,15 +7,16 @@ for dir in /var/www/html/*/; do
 	chown -R www-data:www-data /var/www/html/$schoolcode/sites/default/files
 
 	twit \
-		/srv/templates/vhosts.conf.tpl \
-		/etc/apache2/sites-available/$schoolcode.conf \
-		-p '{"schoolcode": '"\"$schoolcode\""'}'
+		/srv/templates/vhost.conf.tpl \
+		/etc/apache2/sites-enabled/$schoolcode.conf \
+		-p '{"schoolcode": '"\"$schoolcode\""'}' \
+		--no-escape
 
 	twit \
 		/srv/templates/settings.php.tpl \
 		/var/www/html/$schoolcode/sites/default/settings.php \
-		-p '{"schoolcode": '"\"$schoolcode\""'}'
-
+		-p '{"schoolcode": '"\"$schoolcode\""'}' \
+		--no-escape
 done
 
 exec "$@"
